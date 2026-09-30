@@ -17,6 +17,11 @@ permissions:
 jobs:
   build:
     name: Lint and build
+    # Self-hosted runner: only run for this repository, never for forks or fork pull requests.
+    if: >-
+      github.repository == 'shivraj-ttpl/Demo_github_actions' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, demo_github_actions]
     timeout-minutes: 15
 
